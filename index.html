@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Surat Permintaan Maaf Resmi</title>
+    <!-- Menggunakan Tailwind CSS untuk styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Library untuk efek konfeti saat dimaafkan -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Font Poppins agar terlihat rapi dan modern -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --iphone-blue: #007aff;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f2f2f7; /* iOS Light Gray Background */
+            overflow-x: hidden;
+            touch-action: manipulation;
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        /* Efek garis putus-putus seperti kertas surat premium */
+        .surat-kertas {
+            background-image: repeating-linear-gradient(transparent, transparent 31px, #e5e5ea 31px, #e5e5ea 32px);
+            line-height: 32px;
+        }
+
+        /* Glassmorphism untuk gaya iOS */
+        .ios-blur {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background-color: rgba(255, 255, 255, 0.85);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        #btn-no {
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 50;
+        }
+
+        /* iOS Spinner Style */
+        .loader {
+            border: 2px solid rgba(0,0,0,0.1);
+            border-radius: 50%;
+            border-top: 2px solid var(--iphone-blue);
+            width: 18px;
+            height: 18px;
+            animation: spin 0.8s linear infinite;
+            display: inline-block;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        * {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-5 relative">
+
+    <!-- Container Utama: Surat Permintaan Maaf -->
+    <div id="apology-container" class="max-w-md w-full bg-white rounded-[2rem] shadow-xl overflow-hidden fade-in relative z-10 border border-gray-100 my-4">
+        
+        <!-- Header Bergaya iOS Modal -->
+        <div class="bg-white text-gray-900 text-center pt-8 pb-4 px-6">
+            <div class="w-12 h-1 bg-gray-300 rounded-full mx-auto mb-6 opacity-50"></div>
+            <h1 class="text-2xl font-bold tracking-tight">Surat Pernyataan</h1>
+            <p class="text-[10px] text-gray-400 font-semibold tracking-widest mt-1">NO. 001/MAAF/EMEM/2026</p>
+        </div>
+
+        <!-- Isi Surat -->
+        <div class="px-8 py-4 surat-kertas text-gray-800 text-[15px]">
+            <p class="mb-4 font-bold text-gray-900">Kepada Yth. Naila Aziz Khairunisa,</p>
+            
+            <p class="mb-4 text-justify leading-relaxed">
+                Melalui website ini, AKUU, <span class="font-semibold italic">M RIZKY SATRIO K</span>, menyatakan dengan penuh kesadaran bahwa:
+            </p>
+
+            <ul class="space-y-1 mb-6 font-medium">
+                <li class="flex items-center gap-2 text-red-500">
+                    <span class="w-1.5 h-1.5 bg-red-500 rounded-full"></span> Saya mengaku bersalah
+                </li>
+                <li class="flex items-center gap-2 text-red-500">
+                    <span class="w-1.5 h-1.5 bg-red-500 rounded-full"></span> Saya sangat menyesal
+                </li>
+                <li class="flex items-center gap-2 text-red-500">
+                    <span class="w-1.5 h-1.5 bg-red-500 rounded-full"></span> Saya janji tidak mengulanginya
+                </li>
+            </ul>
+
+            <div class="mt-4 text-center bg-gray-50 p-6 rounded-2xl border border-gray-100">
+                <p class="text-sm font-medium text-gray-600 italic">
+                    "Intinya, bagian resminya cuma formalitas..."
+                </p>
+                <p class="text-2xl font-bold text-gray-900 mt-3 leading-tight">
+                    AKUUU minta maaf banget ya, SAYANGGG! 🥺🙏
+                </p>
+            </div>
+        </div>
+
+        <!-- Tombol Aksi - Form Langsung agar Pesan Pasti Masuk -->
+        <div class="p-8 flex flex-col gap-3">
+            <!-- Formspree Submission -->
+            <form action="https://formspree.io/f/mrizkysatrio165@gmail.com" method="POST" onsubmit="handleSuccess(event)">
+                <input type="hidden" name="Subject" value="Naila Sudah Memaafkan! 🎉">
+                <input type="hidden" name="Nama" value="Naila Aziz Khairunisa">
+                <input type="hidden" name="Pesan" value="Naila menekan tombol 'Iya, Dimaafin'.">
+                <input type="hidden" name="Waktu" id="waktu-input">
+                
+                <button type="submit" id="btn-yes" class="w-full bg-[#34c759] text-white font-bold py-4 rounded-2xl shadow-lg shadow-green-100 transition active:scale-95 flex items-center justify-center gap-2 text-lg">
+                    <span id="btn-text">Iya, Dimaafin 💖</span>
+                </button>
+            </form>
+            
+            <button id="btn-no" class="w-full bg-[#ff3b30] text-white font-bold py-4 rounded-2xl shadow-lg shadow-red-100 transition flex items-center justify-center gap-2 text-lg">
+                <span>Gak Mau! 😡</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Success View -->
+    <div id="success-container" class="hidden max-w-sm w-full ios-blur p-10 text-center rounded-[3rem] shadow-2xl fade-in z-20 border border-white">
+        <div class="text-7xl mb-6 animate-bounce">🥰</div>
+        <h2 class="text-3xl font-extrabold text-gray-900 mb-4 tracking-tight">YAY!</h2>
+        <p class="text-gray-600 leading-relaxed mb-8">
+            Makasih ya <span class="font-bold text-gray-900">SAYANGGG</span> udah dimaafin. Kamu emang yang terbaik! <br><br>
+            AKUUU janji bakal lebih baik lagi. ✨
+        </p>
+        <button onclick="location.reload()" class="text-blue-600 font-bold text-lg active:opacity-50 transition">
+            Lihat Surat Lagi
+        </button>
+    </div>
+
+    <script>
+        const btnNo = document.getElementById('btn-no');
+        const btnYes = document.getElementById('btn-yes');
+        const btnText = document.getElementById('btn-text');
+        const waktuInput = document.getElementById('waktu-input');
+
+        // Set waktu saat halaman dimuat
+        waktuInput.value = new Date().toLocaleString('id-ID');
+
+        const moveButtonRandomly = (e) => {
+            btnNo.style.position = 'fixed';
+            const margin = 30;
+            const maxX = window.innerWidth - btnNo.offsetWidth - margin;
+            const maxY = window.innerHeight - btnNo.offsetHeight - margin;
+            
+            const randomX = Math.max(margin, Math.floor(Math.random() * maxX));
+            const randomY = Math.max(margin, Math.floor(Math.random() * maxY));
+            
+            btnNo.style.left = `${randomX}px`;
+            btnNo.style.top = `${randomY}px`;
+        };
+
+        btnNo.addEventListener('mouseover', moveButtonRandomly);
+        btnNo.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            moveButtonRandomly(e);
+        });
+
+        // Menggunakan fetch manual agar halaman tidak pindah ke halaman "Thank You" Formspree
+        async function handleSuccess(event) {
+            event.preventDefault();
+            
+            btnYes.disabled = true;
+            btnText.innerHTML = '<span class="loader"></span> Mengirim...';
+
+            const form = event.target;
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (response.ok) {
+                    showSuccessUI();
+                } else {
+                    // Jika gagal kirim via fetch, paksa submit normal sebagai fallback
+                    form.submit();
+                }
+            } catch (error) {
+                // Fallback jika ada error jaringan
+                form.submit();
+            }
+        }
+
+        function showSuccessUI() {
+            document.getElementById('apology-container').classList.add('hidden');
+            const successContainer = document.getElementById('success-container');
+            successContainer.classList.remove('hidden');
+            
+            confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#34c759', '#007aff', '#ff2d55', '#ffcc00']
+            });
+        }
+    </script>
+</body>
+</html>
